@@ -1,8 +1,9 @@
 from rest_framework import viewsets
-from rest_framework.generics import CreateAPIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED
-from .models import Profile
+from rest_framework import exceptions
+from rest_framework import status
+from .models import Profile, User
 from .serializers import ProfileSerializer, UserSerializer
 
 
@@ -11,16 +12,16 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
 
-class LoginAPIView(CreateAPIView):
+class LoginAPIView(APIView):
 
     serializer_class = UserSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)  # type: UserSerializer
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        if 'username' not in data:
+            raise exceptions.ParseError(detail='Поле `username` отсутствует')
 
-        profile = Profile.objects.get(user=serializer.data['id'])
+        user, created = User.objects.get_or_create(username=data['username'])
+        profile = Profile.objects.get(user=user)
         profile_serializer = ProfileSerializer(profile)
-        return Response(profile_serializer.data, status=HTTP_201_CREATED, headers=headers)
+        return Response(profile_serializer.data, status=status.HTTP_201_CREATED if created else status.HTTP_200_OK)
