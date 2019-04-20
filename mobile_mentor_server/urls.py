@@ -12,6 +12,8 @@ urlpatterns = [
 router = routers.DefaultRouter()
 router.register(r'profiles', profile_views.ProfileViewSet)
 router.register(r'topics', topic_views.TopicViewSet)
+router.register(r'blocks', topic_views.BlockViewSet)
+router.register(r'tests', topic_views.TestViewSet)
 
 # Логин
 urlpatterns += [

@@ -1,0 +1,72 @@
+[
+{
+    "model": "topic.block",
+    "pk": 1,
+    "fields": {
+        "topic": 1,
+        "name": "\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u044b\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430. \u0411\u043b\u043e\u043a 1.",
+        "content": "",
+        "short_content": ""
+    }
+},
+{
+    "model": "topic.block",
+    "pk": 2,
+    "fields": {
+        "topic": 1,
+        "name": "\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u044b\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430. \u0411\u043b\u043e\u043a 2.",
+        "content": "",
+        "short_content": ""
+    }
+},
+{
+    "model": "topic.block",
+    "pk": 3,
+    "fields": {
+        "topic": 1,
+        "name": "\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u044b\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430. \u0411\u043b\u043e\u043a 3.",
+        "content": "",
+        "short_content": ""
+    }
+},
+{
+    "model": "topic.block",
+    "pk": 4,
+    "fields": {
+        "topic": 2,
+        "name": "\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u0430\u044f \u0438 \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442-\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c. \u0411\u043b\u043e\u043a 1.",
+        "content": "",
+        "short_content": ""
+    }
+},
+{
+    "model": "topic.block",
+    "pk": 5,
+    "fields": {
+        "topic": 2,
+        "name": "\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u0430\u044f \u0438 \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442-\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c. \u0411\u043b\u043e\u043a 2.",
+        "content": "",
+        "short_content": ""
+    }
+},
+{
+    "model": "topic.block",
+    "pk": 6,
+    "fields": {
+        "topic": 2,
+        "name": "\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u0430\u044f \u0438 \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442-\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c. \u0411\u043b\u043e\u043a 3.",
+        "content": "",
+        "short_content": ""
+    }
+},
+{
+    "model": "topic.block",
+    "pk": 7,
+    "fields": {
+        "topic": 2,
+        "name": "\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u0430\u044f \u0438 \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442-\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c. \u0411\u043b\u043e\u043a 4.",
+        "content": "",
+        "short_content": ""
+    }
+}
+]
