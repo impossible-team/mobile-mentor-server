@@ -44,6 +44,7 @@ BASE_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+    'corsheaders'
 ]
 
 LOCAL_APPS = [
@@ -59,6 +60,7 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -141,4 +143,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Import another components
 from config.settings.components.django_rest_framework import *
 from config.settings.components.django_rest_swagger import *
+from config.settings.components.django_cors_headers import *
 
