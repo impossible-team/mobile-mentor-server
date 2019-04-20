@@ -136,6 +136,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # Import another components
 from config.settings.components.django_rest_framework import *
 from config.settings.components.django_rest_swagger import *
