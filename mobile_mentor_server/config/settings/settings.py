@@ -44,11 +44,13 @@ BASE_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
-    'corsheaders'
+    'corsheaders',
+    'django_filters'
 ]
 
 LOCAL_APPS = [
-    'profile.apps.ProfileConfig'
+    'profile.apps.ProfileConfig',
+    'topic.apps.TopicConfig'
 ]
 
 THIRD_APPS = [
@@ -140,6 +142,8 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+
+FIXTURE_DIRS = os.path.join(BASE_DIR, 'fixtures')
 # Import another components
 from config.settings.components.django_rest_framework import *
 from config.settings.components.django_rest_swagger import *
