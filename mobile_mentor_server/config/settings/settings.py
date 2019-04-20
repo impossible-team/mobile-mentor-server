@@ -45,12 +45,12 @@ BASE_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'corsheaders',
-    'django_filters'
+    'django_filters',
 ]
 
 LOCAL_APPS = [
     'profile.apps.ProfileConfig',
-    'topic.apps.TopicConfig'
+    'topic.apps.TopicConfig',
 ]
 
 THIRD_APPS = [

@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
         return value
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(required=True)
 
     topic_studied = serializers.SerializerMethodField(method_name='mock')
@@ -25,7 +25,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'user', 'state', 'guid', 'points', 'topic_studied', 'topic_total', 'game_won', 'game_total', 'game_rating')
+        fields = ('url', 'id', 'user', 'state', 'guid', 'points', 'topic_studied', 'topic_total', 'game_won', 'game_total', 'game_rating')
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')

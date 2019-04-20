@@ -32,11 +32,11 @@ class BlockDetailSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'content', 'tests')
 
 
-class TopicSerializer(serializers.ModelSerializer):
+class TopicSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Topic
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'url', )
 
 
 class TopicDetailSerializer(serializers.ModelSerializer):
