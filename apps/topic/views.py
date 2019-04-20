@@ -12,7 +12,7 @@ class TopicViewSet(viewsets.ModelViewSet):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
 
-    # filter_backends = (filters.SearchFilter, )
+    filter_backends = (filters.SearchFilter, )
     search_fields = ('name', )
 
 
