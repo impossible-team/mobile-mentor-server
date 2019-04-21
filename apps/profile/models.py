@@ -8,6 +8,11 @@ from topic.models import Block, Topic
 
 
 class Profile(models.Model):
+    STATE_OFFLINE = 0
+    STATE_ONLINE = 1
+    STATE_READY_TO_PLAY = 2
+    STATE_IN_GAME = 3
+
     STATES = (
         (0, _('OFFLINE')),
         (1, _('ONLINE')),

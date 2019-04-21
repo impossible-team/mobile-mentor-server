@@ -20,7 +20,7 @@ class Game(models.Model):
         (100, _('GAME IS ENDED'))
     )
 
-    player1 = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('Player 1'))
+    player1 = models.OneToOneField(User, related_name='game_plaer' , on_delete=models.CASCADE, verbose_name=_('Player 1'))
     player2 = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('Player 2'))
     winner = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('Winner'))
     loser = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('Loser'))

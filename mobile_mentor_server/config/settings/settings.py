@@ -51,6 +51,7 @@ BASE_APPS = [
 LOCAL_APPS = [
     'profile.apps.ProfileConfig',
     'topic.apps.TopicConfig',
+    'game.apps.GameConfig'
 ]
 
 THIRD_APPS = [

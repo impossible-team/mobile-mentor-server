@@ -4,6 +4,7 @@ from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
 from profile import views as profile_views
 from topic import views as topic_views
+from game import views as game_views
 
 urlpatterns = [
     url('admin/', admin.site.urls),
@@ -14,6 +15,7 @@ router.register(r'profiles', profile_views.ProfileViewSet)
 router.register(r'topics', topic_views.TopicViewSet)
 router.register(r'blocks', topic_views.BlockViewSet)
 router.register(r'tests', topic_views.TestViewSet)
+router.register(r'games', game_views.GameViewSet)
 
 # Логин
 urlpatterns += [
