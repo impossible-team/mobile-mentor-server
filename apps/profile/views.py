@@ -23,5 +23,5 @@ class LoginAPIView(APIView):
 
         user, created = User.objects.get_or_create(username=data['username'])
         profile = Profile.objects.get(user=user)
-        profile_serializer = ProfileSerializer(profile)
+        profile_serializer = ProfileSerializer(profile, context={'request': request})
         return Response(profile_serializer.data, status=status.HTTP_201_CREATED if created else status.HTTP_200_OK)

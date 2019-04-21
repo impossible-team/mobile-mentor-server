@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from topic.models import Topic
 from .models import Profile, User
 
 
@@ -17,8 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(required=True)
 
-    topic_studied = serializers.SerializerMethodField(method_name='mock')
-    topic_total = serializers.SerializerMethodField(method_name='mock')
+    topic_studied = serializers.SerializerMethodField()
+    topic_total = serializers.SerializerMethodField()
     game_won = serializers.SerializerMethodField(method_name='mock')
     game_total = serializers.SerializerMethodField(method_name='mock')
     game_rating = serializers.SerializerMethodField(method_name='mock')
@@ -31,6 +32,23 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         user_data = validated_data.pop('user')
         user = UserSerializer.create(UserSerializer(), validated_data=user_data)
         return Profile.objects.get(user=user)
+
+    def get_topic_studied(self, obj):
+        """
+        Количество изученных тем
+        :param Profile obj:
+        :return:
+        """
+        return obj.topic_studied_count()
+
+    def get_topic_total(self, obj):
+        """
+        Общее количетсво тем
+
+        :param Profile obj:
+        :return:
+        """
+        return Topic.objects.count()
 
     def mock(self, obj):
         return 1

@@ -38,7 +38,7 @@ class Test(models.Model):
     """
     Модель тестов для очередного блока
     """
-    block = models.ForeignKey(Block, blank=True, verbose_name=_('Block'), related_name='tests', on_delete=models.CASCADE)
+    block = models.ForeignKey(Block, on_delete=models.CASCADE, blank=True, verbose_name=_('Block'), related_name='tests')
     name = models.CharField(max_length=100, blank=True, null=True, verbose_name=_('Name'))
     content = models.TextField(null=True, blank=True, verbose_name=_('Content'))
     correct_answer_code = models.PositiveIntegerField(null=False, blank=False, default=0, verbose_name=_('Correct answer'))
