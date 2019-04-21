@@ -43,8 +43,8 @@ class Game(models.Model):
 class GameResults(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name=_('Game'))
     test = models.ForeignKey(Test, on_delete=models.CASCADE, verbose_name=_('Test'))
-    player_1 = models.BooleanField(null=False, blank=False, default=False, verbose_name=_('Player 1'))
-    player_2 = models.BooleanField(null=False, blank=False, default=False, verbose_name=_('Player 2'))
+    player1 = models.BooleanField(null=False, blank=False, default=False, verbose_name=_('Player 1'))
+    player2 = models.BooleanField(null=False, blank=False, default=False, verbose_name=_('Player 2'))
 
     class Meta:
         verbose_name = _('Game result')
