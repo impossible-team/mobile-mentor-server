@@ -4,7 +4,7 @@ from profile.serializers import ProfileBaseInfoSerializer
 from .models import Game
 from game_brain import api as brain
 
-class GameSerializer(serializers.HyperlinkedModelSerializer):
+class GameSerializer(serializers.ModelSerializer):
 
     player1 = ProfileBaseInfoSerializer()
     player2 = ProfileBaseInfoSerializer()
@@ -17,7 +17,7 @@ class GameSerializer(serializers.HyperlinkedModelSerializer):
                   'end_time', 'state')
 
 
-class GameCreateSerializer(serializers.HyperlinkedModelSerializer):
+class GameCreateSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField()
 
     def validate(self, attrs):
@@ -29,7 +29,11 @@ class GameCreateSerializer(serializers.HyperlinkedModelSerializer):
         return brain.get_game(player)
 
     def to_representation(self, obj):
+<<<<<<< HEAD
         return GameSerializer(obj).data
+=======
+        return GameSerializer(obj, context=self.context).data
+>>>>>>> feature/game
 
     class Meta:
         model = Game

@@ -54,19 +54,21 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         return 1
 
 
-class ProfileBaseInfoSerializer(serializers.HyperlinkedModelSerializer):
-    user = UserSerializer(required=True)
-
+class ProfileBaseInfoSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField()
     game_rating = serializers.SerializerMethodField(method_name='mock')
 
     class Meta:
         model = Profile
-        fields = ('url', 'id', 'user', 'game_rating')
+        fields = ('id', 'game_rating', 'username', )
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')
         user = UserSerializer.create(UserSerializer(), validated_data=user_data)
         return Profile.objects.get(user=user)
+
+    def get_username(self, obj):
+        return obj.user.username
 
     def mock(self, obj):
         return 1
