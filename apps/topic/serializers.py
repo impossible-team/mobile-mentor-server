@@ -15,6 +15,11 @@ class TestDetailSerializer(serializers.HyperlinkedModelSerializer):
         model = Test
         fields = ('id', 'name', 'content', )
 
+class TestDetailModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Test
+        fields = ('id', 'name', 'content', )
 
 class BlockSerializer(serializers.HyperlinkedModelSerializer):
 
