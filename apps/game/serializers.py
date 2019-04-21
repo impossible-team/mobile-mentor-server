@@ -29,7 +29,11 @@ class GameCreateSerializer(serializers.ModelSerializer):
         return brain.get_game(player)
 
     def to_representation(self, obj):
+<<<<<<< HEAD
+        return GameSerializer(obj).data
+=======
         return GameSerializer(obj, context=self.context).data
+>>>>>>> feature/game
 
     class Meta:
         model = Game

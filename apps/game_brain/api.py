@@ -16,6 +16,7 @@ def get_game(player):
         return player_now_play[0]
 
     # поиск случайной свободной игры
+    #!!!!!КРОМЕСЕБЯ!!!!!
     wainting_payers = Game.objects.order_by('?').filter(state__exact=Game.STATE_WAITING_FOR_PLAYERS)
     # waiter_players = Profile.objects.order_by('?').filter(state__exact=Profile.STATE_READY_TO_PLAY)
     if wainting_payers:
