@@ -13,8 +13,8 @@ class GameSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Game
-        fields = ('url', 'id', 'player1', 'player2', 'winner', 'loser', 'winner_points', 'loser_points', 'start',
-                  'end', 'state')
+        fields = ('url', 'id', 'player1', 'player2', 'winner', 'loser', 'winner_points', 'loser_points', 'start_time',
+                  'end_time', 'state')
 
 
 class GameCreateSerializer(serializers.HyperlinkedModelSerializer):
@@ -27,6 +27,9 @@ class GameCreateSerializer(serializers.HyperlinkedModelSerializer):
         id = validated_data['user_id']
         player = Profile.objects.get(pk=id)
         return brain.get_game(player)
+
+    def to_representation(self, obj):
+        return GameSerializer(obj).data
 
     class Meta:
         model = Game
