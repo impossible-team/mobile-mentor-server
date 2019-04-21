@@ -2,28 +2,28 @@ from rest_framework import serializers
 from .models import Topic, Block, Test
 
 
-class TestSerializer(serializers.ModelSerializer):
+class TestSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Test
         fields = ('id', 'name', )
 
 
-class TestDetailSerializer(serializers.ModelSerializer):
+class TestDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Test
         fields = ('id', 'name', 'content', )
 
 
-class BlockSerializer(serializers.ModelSerializer):
+class BlockSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Block
         fields = ('id', 'name', )
 
 
-class BlockDetailSerializer(serializers.ModelSerializer):
+class BlockDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     tests = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
@@ -39,10 +39,10 @@ class TopicSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'url', )
 
 
-class TopicDetailSerializer(serializers.ModelSerializer):
+class TopicDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     blocks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Block
-        fields = ('id', 'name', 'content', 'blocks')
+        fields = ('id', 'name', 'url', 'content', 'blocks')

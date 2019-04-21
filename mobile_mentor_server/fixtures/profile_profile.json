@@ -1,0 +1,29 @@
+[
+{
+    "model": "profile.profile",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "guid": "06695719-4224-4098-8ef1-aa16ba1f4d2b",
+        "state": 0,
+        "points": 0,
+        "blocks": []
+    }
+},
+{
+    "model": "profile.profile",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "guid": "efd805d6-f66c-42c1-8094-9b22d8b18af3",
+        "state": 0,
+        "points": 0,
+        "blocks": [
+            1,
+            5,
+            2,
+            3
+        ]
+    }
+}
+]
