@@ -37,33 +37,15 @@ class GameViewSet(viewsets.ModelViewSet):
             game_result = GameResults.objects.filter(game=game, test__pk=test_id).get()
             if game.player1.pk == user_id:
                 game_result.player1 = answers_true[test_id] == answers[test_id]
-                # if game.state != game.STATE_GAME_IS_ENDED:
-                #     if game.state == game.STATE_SECOND_END:
-                #         game.state = game.STATE_GAME_IS_ENDED
-                #     else:
-                #         game.state = game.STATE_FIRST_END
             elif game.player2.pk == user_id:
                 game_result.player2 = answers_true[test_id] == answers[test_id]
-                # if game.state != game.STATE_GAME_IS_ENDED:
-                #     if game.state == game.STATE_FIRST_END:
-                #         game.state = game.STATE_GAME_IS_ENDED
-                #     else:
-                #         game.state = game.STATE_SECOND_END
-
             game_result.save()
 
-        if (game.player1.pk == user_id) and (game.state != game.STATE_FIRST_END):
-            if game.state == game.STATE_IN_GAME:
-                game.state = game.STATE_FIRST_END
-            else:
-                game.state = game.STATE_GAME_IS_ENDED
+        if game.player1.pk == user_id:
+            game.state = game.state | game.STATE_FIRST_END
 
-        if (game.player2.pk == user_id) and (game.state != game.STATE_SECOND_END):
-            if game.state == game.STATE_IN_GAME:
-                game.state = game.STATE_SECOND_END
-            else:
-                game.state = game.STATE_GAME_IS_ENDED
-
+        if game.player2.pk == user_id:
+            game.state = game.state | game.STATE_SECOND_END
         game.save()
         if game.is_ended:
             self.calculate_points()
@@ -74,7 +56,7 @@ class GameViewSet(viewsets.ModelViewSet):
         player1_answers = sum([int(res[0]) for res in GameResults.objects.filter(game=game).values_list('player1')])
         player2_answers = sum([int(res[0]) for res in GameResults.objects.filter(game=game).values_list('player2')])
         if player1_answers == player2_answers:
-            return
+            player1_answers += 1
         game.winner_points = 10
         game.loser_points = -5
         if player1_answers > player2_answers:

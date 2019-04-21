@@ -9,10 +9,10 @@ class Game(models.Model):
     Модель используется как для организации процесса игры, так и для хранения её результата
     """
     STATE_WAITING_FOR_PLAYERS = 0
-    STATE_FIRST_END = 1
-    STATE_SECOND_END = 2
-    STATE_IN_GAME = 3
-    STATE_GAME_IS_ENDED = 100
+    STATE_IN_GAME = 1
+    STATE_FIRST_END = 10
+    STATE_SECOND_END = 100
+    STATE_GAME_IS_ENDED = 111
 
     STATES = (
         (STATE_WAITING_FOR_PLAYERS, _('WAITING FOR PLAYERS')),
