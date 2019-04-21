@@ -10,15 +10,17 @@ class Game(models.Model):
     Модель используется как для организации процесса игры, так и для хранения её результата
     """
     STATE_WAITING_FOR_PLAYERS = 0
+    STATE_FIRST_END = 1
+    STATE_SECOND_END = 2
     STATE_IN_GAME = 3
     STATE_GAME_IS_ENDED = 100
 
     STATES = (
-        (0, _('WAITING FOR PLAYERS')),
-        (1, _('IN GAME BUT FIRST IS ENDED')),
-        (2, _('IN GAME BUT SECOND IS ENDED')),
-        (3, _('IN GAME')),
-        (100, _('GAME IS ENDED'))
+        (STATE_WAITING_FOR_PLAYERS, _('WAITING FOR PLAYERS')),
+        (STATE_FIRST_END, _('IN GAME BUT FIRST IS ENDED')),
+        (STATE_SECOND_END, _('IN GAME BUT SECOND IS ENDED')),
+        (STATE_IN_GAME, _('IN GAME')),
+        (STATE_GAME_IS_ENDED, _('GAME IS ENDED'))
     )
 
     player1 = models.OneToOneField(Profile, null=True, related_name='+', on_delete=models.CASCADE, verbose_name=_('Player 1'))
@@ -38,6 +40,10 @@ class Game(models.Model):
 
     def __str__(self):
         return self.__class__.__name__
+
+    @property
+    def is_ended(self):
+        return self.state == self.STATE_GAME_IS_ENDED
 
 
 class GameResults(models.Model):
