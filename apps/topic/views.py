@@ -13,13 +13,13 @@ class TopicViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, )
     search_fields = ('name', )
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer_class = TopicDetailSerializer
-        kwargs['context'] = self.get_serializer_context()
-        args = args + (instance, )
-        serializer = serializer_class(*args, **kwargs)
-        return Response(serializer.data)
+    def initialize_request(self, request, *args, **kwargs):
+        result = super(TopicViewSet, self).initialize_request(request, *args, **kwargs)
+        if self.action == 'retrieve':
+            self.serializer_class = TopicDetailSerializer
+        else:
+            self.serializer_class = TopicSerializer
+        return result
 
 
 class BlockViewSet(viewsets.ModelViewSet):
@@ -30,12 +30,13 @@ class BlockViewSet(viewsets.ModelViewSet):
     search_fields = ('name', )
     filter_fields = ('topic__id', )
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer_class = BlockDetailSerializer
-        kwargs['context'] = self.get_serializer_context()
-        serializer = serializer_class(instance)
-        return Response(serializer.data)
+    def initialize_request(self, request, *args, **kwargs):
+        result = super(BlockViewSet, self).initialize_request(request, *args, **kwargs)
+        if self.action == 'retrieve':
+            self.serializer_class = BlockDetailSerializer
+        else:
+            self.serializer_class = BlockSerializer
+        return result
 
 
 class TestViewSet(viewsets.ModelViewSet):
