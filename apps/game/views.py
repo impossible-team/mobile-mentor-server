@@ -66,8 +66,10 @@ class GameViewSet(viewsets.ModelViewSet):
             game.winner = game.player2
             game.loser = game.player1
         game.winner.points += game.winner_points
+        game.winner.save()
         game.loser.points -= game.loser_points
         if game.loser.points < 0:
             game.loser.points = 0
+            game.loser.save()
         game.end_time = timezone.now()
         game.save()
