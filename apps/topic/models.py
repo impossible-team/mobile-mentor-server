@@ -1,3 +1,4 @@
+from random import shuffle
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -16,6 +17,11 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.name or self.__class__.__name__
+
+    def get_random_tests(self, count):
+        tests = [test for block in self.blocks.all() for test in block.tests.all()]
+        shuffle(tests)
+        return tests[:count]
 
 
 class Block(models.Model):

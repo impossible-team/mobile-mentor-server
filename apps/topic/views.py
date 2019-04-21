@@ -16,13 +16,26 @@ class TopicViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, )
     search_fields = ('name', )
 
-    def initialize_request(self, request, *args, **kwargs):
-        result = super(TopicViewSet, self).initialize_request(request, *args, **kwargs)
+    def get_serializer_class(self):
         if self.action == 'retrieve':
-            self.serializer_class = TopicDetailSerializer
+            return TopicDetailSerializer
         else:
-            self.serializer_class = TopicSerializer
-        return result
+            return TopicSerializer
+
+    @action(methods=['get'], detail=False, url_path='(?P<pk>[^/.]+)/generate_tests')
+    def generate_tests(self, request, *args, **kwargs):
+        params = request.query_params
+        if 'count' not in params:
+            count = 1
+        else:
+            try:
+                count = int(params['count'])
+            except ValueError:
+                raise ParseError('Неверный тип переданного значения `count`: {}'.format(type(params['count'])))
+        topic = self.get_object()  # type: Topic
+        tests_qs = topic.get_random_tests(count)
+        serializer = TestDetailSerializer(tests_qs, many=True)
+        return Response(serializer.data)
 
 
 class BlockViewSet(viewsets.ModelViewSet):
@@ -33,13 +46,11 @@ class BlockViewSet(viewsets.ModelViewSet):
     search_fields = ('name', )
     filter_fields = ('topic__id', )
 
-    def initialize_request(self, request, *args, **kwargs):
-        result = super(BlockViewSet, self).initialize_request(request, *args, **kwargs)
+    def get_serializer_class(self):
         if self.action in ['retrieve', 'studied']:
-            self.serializer_class = BlockDetailSerializer
+            return BlockDetailSerializer
         else:
-            self.serializer_class = BlockSerializer
-        return result
+            return BlockSerializer
 
     @action(methods=['post'], detail=False, url_path='(?P<pk>[^/.]+)/studies')
     def studied(self, request,  *args, **kwargs):
