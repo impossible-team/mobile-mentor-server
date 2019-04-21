@@ -75,3 +75,9 @@ class TestViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, )
     search_fields = ('name', )
     filter_fields = ('block__id', )
+
+    def get_serializer_class(self):
+        if self.action in ['retrieve', 'studied']:
+            return TestDetailSerializer
+        else:
+            return TestSerializer
