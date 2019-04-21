@@ -60,8 +60,8 @@ class GameViewSet(viewsets.ModelViewSet):
         player2_answers = sum([int(res[0]) for res in GameResults.objects.filter(game=game).values_list('player2')])
         if player1_answers == player2_answers:
             return
-        game.winner_points += 10
-        game.loser_points -= 5
+        game.winner_points = 10
+        game.loser_points = -5
         if player1_answers > player2_answers:
             game.winner = game.player1
             game.loser = game.player2

@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from profile.models import Profile
 from topic.models import Test
 
 
@@ -23,10 +22,10 @@ class Game(models.Model):
         (STATE_GAME_IS_ENDED, _('GAME IS ENDED'))
     )
 
-    player1 = models.OneToOneField(Profile, null=True, related_name='+', on_delete=models.CASCADE, verbose_name=_('Player 1'))
-    player2 = models.OneToOneField(Profile, null=True, related_name='+', on_delete=models.CASCADE, verbose_name=_('Player 2'))
-    winner = models.OneToOneField(Profile, null=True, related_name='winner_games_set', on_delete=models.CASCADE, verbose_name=_('Winner'))
-    loser = models.OneToOneField(Profile, null=True, related_name='loser_games_set', on_delete=models.CASCADE, verbose_name=_('Loser'))
+    player1 = models.ForeignKey("profile.Profile", null=True, related_name='+', on_delete=models.CASCADE, verbose_name=_('Player 1'))
+    player2 = models.ForeignKey("profile.Profile", null=True, related_name='+', on_delete=models.CASCADE, verbose_name=_('Player 2'))
+    winner = models.ForeignKey("profile.Profile", null=True, related_name='winner_games_set', on_delete=models.CASCADE, verbose_name=_('Winner'))
+    loser = models.ForeignKey("profile.Profile", null=True, related_name='loser_games_set', on_delete=models.CASCADE, verbose_name=_('Loser'))
     winner_points = models.IntegerField(null=True, default=0, verbose_name=_('Winner points'))
     loser_points = models.IntegerField(null=True, default=0, verbose_name=_('Loser points'))
     start_time = models.DateTimeField(null=True, auto_now_add=True, verbose_name=_('Game start time'))

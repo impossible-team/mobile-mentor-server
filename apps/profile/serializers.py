@@ -20,13 +20,17 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 
     topic_studied = serializers.SerializerMethodField()
     topic_total = serializers.SerializerMethodField()
-    game_won = serializers.SerializerMethodField(method_name='mock')
-    game_total = serializers.SerializerMethodField(method_name='mock')
-    game_rating = serializers.SerializerMethodField(method_name='mock')
+    game_won = serializers.SerializerMethodField()
+    game_total = serializers.SerializerMethodField()
+    game_rating = serializers.SerializerMethodField()
 
     class Meta:
         model = Profile
-        fields = ('url', 'id', 'user', 'state', 'guid', 'points', 'topic_studied', 'topic_total', 'game_won', 'game_total', 'game_rating')
+        fields = (
+            'url', 'id', 'user', 'state', 'guid', 'points',
+            'topic_studied', 'topic_total',
+            'game_won', 'game_total', 'game_rating'
+        )
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')
@@ -36,6 +40,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     def get_topic_studied(self, obj):
         """
         Количество изученных тем
+
         :param Profile obj:
         :return:
         """
@@ -50,8 +55,37 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         """
         return Topic.objects.count()
 
-    def mock(self, obj):
-        return 1
+    def get_game_won(self, obj):
+        """
+
+        :param Profile obj:
+        :return:
+        """
+        return obj.game_won()
+
+    def get_game_total(self, obj):
+        """
+
+        :param Profile obj:
+        :return:
+        """
+        return obj.game_count()
+
+    def get_game_rating(self, obj):
+        """
+
+        :param Profile obj:
+        :return:
+        """
+        rating = (obj.game_won() / (obj.game_count() or 1)) * 100
+        if rating < 50.0:
+            return 1
+        elif rating < 75.0:
+            return 2
+        elif rating <= 100.0:
+            return 3
+        else:
+            return 3
 
 
 class ProfileBaseInfoSerializer(serializers.ModelSerializer):

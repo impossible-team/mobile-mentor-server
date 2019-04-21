@@ -1,10 +1,12 @@
 from uuid import uuid4
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from topic.models import Block, Topic
+from game.models import Game
 
 
 class Profile(models.Model):
@@ -41,6 +43,12 @@ class Profile(models.Model):
     def topic_studied_count(self):
         topic_studied = [bool(self.is_topic_studied(topic.pk)) for topic in Topic.objects.all()]
         return sum(topic_studied)
+
+    def game_won(self):
+        return Game.objects.filter(winner=self).count()
+
+    def game_count(self):
+        return Game.objects.filter(Q(player1=self) | Q(player2=self)).count()
 
 
 @receiver(post_save, sender=User)
