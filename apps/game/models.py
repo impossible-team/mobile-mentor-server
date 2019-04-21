@@ -1,9 +1,8 @@
-from uuid import uuid4
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from profile.models import Profile
+from topic.models import Test
+
 
 class Game(models.Model):
     """
@@ -31,6 +30,7 @@ class Game(models.Model):
     start_time = models.DateTimeField(null=True, auto_now_add=True, verbose_name=_('Game start time'))
     end_time = models.DateTimeField(null=True, verbose_name=_('Game end time'))
     state = models.IntegerField(null=False, choices=STATES, default=0, verbose_name=_('State'))
+    results = models.ManyToManyField(Test, through='GameResults', through_fields=('game', 'test'))
 
     class Meta:
         verbose_name = _('Game')
@@ -38,3 +38,14 @@ class Game(models.Model):
 
     def __str__(self):
         return self.__class__.__name__
+
+
+class GameResults(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name=_('Game'))
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, verbose_name=_('Test'))
+    player_1 = models.BooleanField(null=False, blank=False, default=False, verbose_name=_('Player 1'))
+    player_2 = models.BooleanField(null=False, blank=False, default=False, verbose_name=_('Player 2'))
+
+    class Meta:
+        verbose_name = _('Game result')
+        verbose_name_plural = _('Game results')
