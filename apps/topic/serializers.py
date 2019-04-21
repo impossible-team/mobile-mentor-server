@@ -44,5 +44,5 @@ class TopicDetailSerializer(serializers.HyperlinkedModelSerializer):
     blocks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
-        model = Block
-        fields = ('id', 'name', 'url', 'content', 'blocks')
+        model = Topic
+        fields = ('id', 'name', 'url', 'blocks')
