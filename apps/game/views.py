@@ -4,7 +4,7 @@ from .serializers import GameSerializer, GameCreateSerializer
 from game_brain import api as brain_api
 
 
-class GameViewSet(viewsets.ViewSet):
+class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 

@@ -53,6 +53,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     def mock(self, obj):
         return 1
 
+
 class ProfileBaseInfoSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(required=True)
 
@@ -60,7 +61,7 @@ class ProfileBaseInfoSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('url', 'id', 'game_rating')
+        fields = ('url', 'id', 'user', 'game_rating')
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')

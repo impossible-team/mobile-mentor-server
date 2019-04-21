@@ -1,16 +1,18 @@
 from uuid import uuid4
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from profile.models import Profile
 
 class Game(models.Model):
     """
     Игра
     Модель используется как для организации процесса игры, так и для хранения её результата
     """
+    STATE_WAITING_FOR_PLAYERS = 0
+    STATE_IN_GAME = 3
+    STATE_GAME_IS_ENDED = 100
 
     STATES = (
         (0, _('WAITING FOR PLAYERS')),
@@ -20,10 +22,10 @@ class Game(models.Model):
         (100, _('GAME IS ENDED'))
     )
 
-    player1 = models.OneToOneField(User, related_name='game_plaer' , on_delete=models.CASCADE, verbose_name=_('Player 1'))
-    player2 = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('Player 2'))
-    winner = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('Winner'))
-    loser = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('Loser'))
+    player1 = models.OneToOneField(Profile, related_name='+', on_delete=models.CASCADE, verbose_name=_('Player 1'))
+    player2 = models.OneToOneField(Profile, related_name='+', on_delete=models.CASCADE, verbose_name=_('Player 2'))
+    winner = models.OneToOneField(Profile, related_name='winner_games_set', on_delete=models.CASCADE, verbose_name=_('Winner'))
+    loser = models.OneToOneField(Profile, related_name='loser_games_set', on_delete=models.CASCADE, verbose_name=_('Loser'))
     winner_points = models.IntegerField(blank=False, null=True, default=0, verbose_name=_('Winner points'))
     loser_points = models.IntegerField(blank=False, null=True, default=0, verbose_name=_('Loser points'))
     start = models.DateTimeField(blank=False, auto_now_add=True, verbose_name=_('Game start time'))
